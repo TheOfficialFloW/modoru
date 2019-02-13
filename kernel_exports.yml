@@ -1,0 +1,18 @@
+modoru_kernel:
+  attributes: 0
+  version:
+    major: 1
+    minor: 0
+  main:
+    start: module_start
+    stop: module_stop
+  modules:
+    modoru_kernel:
+      syscall: true
+      functions:
+        - k_modoru_release_updater_patches
+        - k_modoru_patch_updater
+        - k_modoru_launch_updater
+        - k_modoru_detect_plugins
+        - k_modoru_get_factory_firmware
+        - k_modoru_ctrl_peek_buffer_positive
