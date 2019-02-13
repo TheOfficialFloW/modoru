@@ -6,7 +6,7 @@
 
 - Your device must already run **HENkaku/h-encore** on firmwares 3.60-3.68 in order to use this software. Firmwares 3.69 and 3.70 can use this software once a new hack is released.
 - Your device's battery has be at least at 50%.
-- All your plugins must be disabled, therefore you will not be able to launch the downgrader from a SD2VITA and hence, you must have use a Memory Card (or Internal Storage).
+- All your plugins must be disabled, therefore you will not be able to launch the downgrader from a SD2VITA and hence, you must have a Memory Card (or Internal Storage).
 
 ## Installation
 
