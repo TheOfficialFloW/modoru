@@ -274,6 +274,29 @@ int main(int argc, char *argv[]) {
   if (res < 0)
     ErrorExit(10000, "Error 0x%08X loading drivers.\n", res);
 
+  SceKernelFwInfo fwinfo;
+  fwinfo.size = sizeof(SceKernelFwInfo);
+  _vshSblGetSystemSwVersion(&fwinfo);
+
+  unsigned int current_version = (unsigned int)fwinfo.version;
+  unsigned int factory_version = modoru_get_factory_firmware();
+
+  char current_fw[8], factory_fw[8];
+  firmware_string(current_fw, current_version);
+  firmware_string(factory_fw, factory_version);
+
+  printf("Firmware information:\n");
+  printf(" - Current firmware: ");
+  psvDebugScreenSetTextColor(YELLOW);
+  printf("%s", current_fw);
+  psvDebugScreenSetTextColor(WHITE);
+  printf("\n");
+  printf(" - Factory firmware: ");
+  psvDebugScreenSetTextColor(YELLOW);
+  printf("%s", factory_fw);
+  psvDebugScreenSetTextColor(WHITE);
+  printf("\n\n");
+
   SceCtrlData pad;
   modoru_ctrl_peek_buffer_positive(0, &pad, 1);
   if (pad.buttons & (SCE_CTRL_LTRIGGER | SCE_CTRL_R1)) {
@@ -307,31 +330,12 @@ int main(int argc, char *argv[]) {
   if (strncmp(header, "SCEUF", 5) != 0)
     ErrorExit(10000, "Error invalid updater file.\n");
 
-  SceKernelFwInfo fwinfo;
-  fwinfo.size = sizeof(SceKernelFwInfo);
-  _vshSblGetSystemSwVersion(&fwinfo);
-
-  unsigned int current_version = (unsigned int)fwinfo.version;
-  unsigned int factory_version = modoru_get_factory_firmware();
   unsigned int target_version  = *(unsigned int *)(header + 0x10);
 
-  char current_fw[8], factory_fw[8], target_fw[8];
-  firmware_string(current_fw, current_version);
-  firmware_string(factory_fw, factory_version);
+  char target_fw[8];
   firmware_string(target_fw,  target_version);
 
-  printf("Firmware information:\n");
-  printf(" - Current firmware: ");
-  psvDebugScreenSetTextColor(YELLOW);
-  printf("%s", current_fw);
-  psvDebugScreenSetTextColor(WHITE);
-  printf("\n");
-  printf(" - Factory firmware: ");
-  psvDebugScreenSetTextColor(YELLOW);
-  printf("%s", factory_fw);
-  psvDebugScreenSetTextColor(WHITE);
-  printf("\n");
-  printf(" - Target  firmware: ");
+  printf("Target firmware: ");
   psvDebugScreenSetTextColor(YELLOW);
   printf("%s", target_fw);
   psvDebugScreenSetTextColor(WHITE);
