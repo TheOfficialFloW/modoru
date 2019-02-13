@@ -2,6 +2,11 @@
 
 *modoru* means "to go back" in Japanese and is a downgrader for the *PS Vita™*.
 
+## Requirements
+
+- Your device must already run HENkaku/h-encore on firmwares 3.60-3.68 in order to use this software. Firmwares 3.69 and 3.70 can use this software once a new hack is released.
+- Your device's battery has be at least at 50%.
+
 ## Installation
 
 1. Download and install [modoru.vpk](https://github.com/TheOfficialFloW/modoru/releases/download/v1.0/modoru.vpk) using *VitaShell*.
