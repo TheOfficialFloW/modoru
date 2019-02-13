@@ -62,8 +62,8 @@ static int SceSysrootForDriver_421EFC96_patched(void) {
   return 0;
 }
 
-static int SceSysrootForDriver_55392965_patched(void) {
-  TAI_CONTINUE(int, SceSysrootForDriver_55392965_ref);
+static int ksceSysrootUseExternalStorage_patched(void) {
+  TAI_CONTINUE(int, ksceSysrootUseExternalStorage_ref);
   return 1;
 }
 
@@ -178,8 +178,8 @@ int k_modoru_patch_updater(void) {
   if (res < 0)
     goto err;
 
-  res = hooks[3] = taiHookFunctionImportForKernel(KERNEL_PID, &SceSysrootForDriver_55392965_ref, "SceSblUpdateMgr",
-                                                  TAI_ANY_LIBRARY, 0x55392965, SceSysrootForDriver_55392965_patched);
+  res = hooks[3] = taiHookFunctionImportForKernel(KERNEL_PID, &ksceSysrootUseExternalStorage_ref, "SceSblUpdateMgr",
+                                                  TAI_ANY_LIBRARY, 0x55392965, ksceSysrootUseExternalStorage_patched);
   if (res < 0)
     goto err;
 
