@@ -30,7 +30,7 @@ int ksceAppMgrLaunchAppByPath(const char *name, const char *cmd, int cmdlen, int
 static tai_hook_ref_t ksceKernelStartPreloadedModulesRef;
 static tai_hook_ref_t ksceSblACMgrIsDevelopmentModeRef;
 static tai_hook_ref_t SceSysrootForDriver_421EFC96_ref;
-static tai_hook_ref_t SceSysrootForDriver_55392965_ref;
+static tai_hook_ref_t ksceSysrootUseExternalStorage_ref;
 static tai_hook_ref_t ksceSblSsInfraAllocatePARangeVectorRef;
 static tai_hook_ref_t ksceKernelAllocHeapMemoryRef;
 static tai_hook_ref_t ksceKernelFreeHeapMemoryRef;
@@ -62,8 +62,8 @@ static int SceSysrootForDriver_421EFC96_patched(void) {
   return 0;
 }
 
-static int SceSysrootForDriver_55392965_patched(void) {
-  TAI_CONTINUE(int, SceSysrootForDriver_55392965_ref);
+static int ksceSysrootUseExternalStorage_patched(void) {
+  TAI_CONTINUE(int, ksceSysrootUseExternalStorage_ref);
   return 1;
 }
 
@@ -134,7 +134,7 @@ int k_modoru_release_updater_patches(void) {
   if (hooks[4] >= 0)
     taiHookReleaseForKernel(hooks[4], ksceSblSsInfraAllocatePARangeVectorRef);
   if (hooks[3] >= 0)
-    taiHookReleaseForKernel(hooks[3], SceSysrootForDriver_55392965_ref);
+    taiHookReleaseForKernel(hooks[3], ksceSysrootUseExternalStorage_ref);
   if (hooks[2] >= 0)
     taiHookReleaseForKernel(hooks[2], SceSysrootForDriver_421EFC96_ref);
   if (hooks[1] >= 0)
@@ -178,8 +178,8 @@ int k_modoru_patch_updater(void) {
   if (res < 0)
     goto err;
 
-  res = hooks[3] = taiHookFunctionImportForKernel(KERNEL_PID, &SceSysrootForDriver_55392965_ref, "SceSblUpdateMgr",
-                                                  TAI_ANY_LIBRARY, 0x55392965, SceSysrootForDriver_55392965_patched);
+  res = hooks[3] = taiHookFunctionImportForKernel(KERNEL_PID, &ksceSysrootUseExternalStorage_ref, "SceSblUpdateMgr",
+                                                  TAI_ANY_LIBRARY, 0x55392965, ksceSysrootUseExternalStorage_patched);
   if (res < 0)
     goto err;
 
