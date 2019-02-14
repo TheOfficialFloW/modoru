@@ -4,15 +4,15 @@
 
 ## Requirements
 
-- Your device must already run **HENkaku/h-encore** on firmwares 3.60-3.68 in order to use this software. Firmwares 3.69 and 3.70 can use this software once a new hack is released.
-- Your device's battery has be at least at 50%.
+- Your device must already run **HENkaku/h-encore** on firmwares 3.55-3.68 in order to use this software. Firmwares 3.69 and 3.70 can use this software once a new hack is released.
+- Your device's battery has be at least at 50% (except if it is a DevKit because it doesn't have a battery...).
 - All your plugins must be disabled, therefore you will not be able to launch the downgrader from a SD2VITA and hence, you must have a Memory Card (or Internal Storage).
 - If you have installed IMCUnlock by SKGleba, it is recommended to uninstall it first before attempting to downgrade.
 
 ## Installation
 
 1. Download and install [modoru.vpk](https://github.com/TheOfficialFloW/modoru/releases/download/v1.0/modoru.vpk) using *VitaShell*.
-2. Obtain the `PSP2UPDAT.PUP` file of your desired firmware (make sure that this firmware is officially hackable) and place it at `ux0:app/MODORU000/PSP2UPDAT.PUP` (don't install `modoru.vpk` afterwards, otherwise the update file will be removed).
+2. Obtain the `PSP2UPDAT.PUP` file of your desired firmware (make sure that this firmware is not higher than 3.68) and place it at `ux0:app/MODORU000/PSP2UPDAT.PUP` (don't install `modoru.vpk` afterwards, otherwise the update file will be removed).
 3. Disable all your plugins. Easiest way is renaming `ux0:tai` and `ur0:tai` to some other name.
 4. Reboot your device and relaunch *HENkaku/h-encore*.
 5. Launch the *modoru* application and follow the instructions on screen.
@@ -20,24 +20,24 @@
 
 ## FAQ
 
-- Q: Where can I find and download firmwares?  
+- Q: Where can I find and download firmwares?
   A: Here is a nice collection by darthsternie: [PS Vita Firmwares](https://darthsternie.net/index.php/ps-vita-firmwares/). Make sure you download the firmware from the `Complete Official Firmwares` section.
-- Q: There are 3 different PUP files in the archive, which one do I need?  
+- Q: There are 3 different PUP files in the archive, which one do I need?
   A: There are packages with (pre), (systemdata) and (full). You should choose the full one.
-- Q: Can I downgrade my 3.69/3.70 device using this tool?  
-  A: Yes, but not yet. You'll need to wait until the next exploit chain is released.
-- Q: My factory firmware is higher than 3.65 and *modoru* doesn't allow me to downgrade to 3.60/3.65.  
+- Q: Can I downgrade my 3.69/3.70 device using this tool?
+  A: Yes, but not yet. You need to wait until the next exploit chain is released.
+- Q: My factory firmware is higher than 3.65 and *modoru* doesn't allow me to downgrade to 3.60/3.65.
   A: Unfortunately, there are some devices with factory firmware above 3.65. These cannot be downgraded (yet). This means no bootloader hack for you.
-- Q: Can I downgrade my device to 3.60/3.65 and then install ensō?  
+- Q: Can I downgrade my device to 3.60/3.65 and then install ensō?
   A: Yes, that's the main goal of this tool.
-- Q: Can I downgrade my testkit/devkit?  
-  A: It has not been tested yet, but you can very likely do it. You should even be able to go lower than firmware 1.692, which is officially inhibited.
-- Q: How low can I downgrade?  
+- Q: Can I downgrade my TestKit/DevKit?
+  A: Yes. You are even able to go lower than firmware 1.692, which is officially inhibited. Note that for using modoru on DevKit you have to press L while launching modoru.
+- Q: How low can I downgrade?
   A: You can go down to your factory firmware (this is highlighted in yellow within *modoru*).
-- Q: Can I use this tool to update or reinstall my firmware?  
+- Q: Can I use this tool to update or reinstall my firmware?
   A: Yes, you can downgrade, update or reinstall any firmware using this tool.
-- Q: Is there a chance of bricking?  
-  A: Not likely, since this application is using the official updater and only makes a few harmless patches to bypass some checks.
+- Q: Is there a chance of bricking?
+  A: Not likely, since this application is using the official updater and only makes a few harmless patches to bypass some checks. No brick happened until now.
 
 ## Donation
 
@@ -55,5 +55,4 @@ Thank you!
 - Thanks to liblor for the name suggestion.
 - Thanks to yifanlu for prior research on downgrading.
 - Thanks to molecule for SCE decryption utilities.
-- Thanks to SKGleba for betatesting.
-
+- Thanks to SKGleba for betatesting on retail and CelesteBlue on TestKit and DevKit.
