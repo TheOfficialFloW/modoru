@@ -4,16 +4,15 @@
 
 ## Requirements
 
-- Your device must already run **HENkaku/h-encore** on firmwares 3.60-3.68 in order to use this software. Firmwares 3.69 and 3.70 can use this software once a new hack is released.
+- Your device must already run **HENkaku/h-encore** on firmwares 3.60-3.68 in order to use this software. **Firmwares 3.69 and 3.70 can use this software once a new hack is released.**
 - Your device's battery has be at least at 50%.
-- All your plugins must be disabled, therefore you will not be able to launch the downgrader from a SD2VITA and hence, you must have a Memory Card (or Internal Storage).
-- If you have installed IMCUnlock by SKGleba, it is recommended to uninstall it first before attempting to downgrade.
+- All your plugins must be disabled, therefore you will not be able to launch the downgrader from a SD2VITA and hence, you must have a Memory Card (or Internal Storage, like that of [IMCUnlock](https://github.com/SKGleba/IMCUnlock/releases)).
 
 ## Installation
 
 1. Download and install [modoru.vpk](https://github.com/TheOfficialFloW/modoru/releases/download/v1.0/modoru.vpk) using *VitaShell*.
 2. Obtain the `PSP2UPDAT.PUP` file of your desired firmware (make sure that this firmware is officially hackable) and place it at `ux0:app/MODORU000/PSP2UPDAT.PUP` (don't install `modoru.vpk` afterwards, otherwise the update file will be removed).
-3. Disable all your plugins. Easiest way is renaming `ux0:tai` and `ur0:tai` to some other name.
+3. Disable all your plugins. Easiest way is holding L when clicking `Exit` in h-encore or starting HENkaku.
 4. Reboot your device and relaunch *HENkaku/h-encore*.
 5. Launch the *modoru* application and follow the instructions on screen.
 6. Enjoy the installation and welcome to your favourite firmware.
