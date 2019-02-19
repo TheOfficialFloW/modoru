@@ -14,7 +14,7 @@
 
 #include "spkg.h"
 
-int ksceSblDmac5AEsCbcDec(void *src, void *dst, int size, void *key, int key_size, void *iv, int mask_enable);
+int ksceSblDmac5AesCbcDec(void *src, void *dst, int size, void *key, int key_size, void *iv, int mask_enable);
 
 uint8_t spkg_key[0x20] = {
   // FILL ME IN
@@ -77,7 +77,7 @@ int decrypt_spkg(void *buf, int size) {
   memcpy(key, spkg_key, 0x20);
   memcpy(iv,  spkg_iv,  0x10);
 
-  res = ksceSblDmac5AEsCbcDec(metadata_info, metadata_info, sizeof(MetadataInfo), key, 256, iv, 1);
+  res = ksceSblDmac5AesCbcDec(metadata_info, metadata_info, sizeof(MetadataInfo), key, 256, iv, 1);
   if (res < 0)
     return res;
 
@@ -91,7 +91,7 @@ int decrypt_spkg(void *buf, int size) {
   memcpy(key, metadata_info->key, 0x10);
   memcpy(iv,  metadata_info->iv,  0x10);
 
-  res = ksceSblDmac5AEsCbcDec(dec, dec, dec_size, key, 128, iv, 1);
+  res = ksceSblDmac5AesCbcDec(dec, dec, dec_size, key, 128, iv, 1);
   if (res < 0)
     return res;
 
