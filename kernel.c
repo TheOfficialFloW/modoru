@@ -127,8 +127,8 @@ int k_modoru_release_updater_patches(void) {
 
   if (hooks[7] >= 0)
     taiHookReleaseForKernel(hooks[7], ksceSblSmCommCallFuncRef);
-  if (hooks[7] >= 0)
-    taiHookReleaseForKernel(hooks[7], ksceKernelFreeHeapMemoryRef);
+  if (hooks[6] >= 0)
+    taiHookReleaseForKernel(hooks[6], ksceKernelFreeHeapMemoryRef);
   if (hooks[5] >= 0)
     taiHookReleaseForKernel(hooks[5], ksceKernelAllocHeapMemoryRef);
   if (hooks[4] >= 0)
