@@ -305,11 +305,11 @@ int main(int argc, char *argv[]) {
 
   if (!bypass) {
     if (scePowerGetBatteryLifePercent() < 50)
-      ErrorExit(10000, "Battery has to be at least at 50%%.\n");
+      ErrorExit(10000, "Battery has to be at least at 50%%\n or Press L and R Triggers on Start Up to Bypass it\n");
 
     res = modoru_detect_plugins();
-    if (res < 0) {
-      ErrorExit(10000, "Error 0x%08X detecting plugins.\n", res);
+    if (res < 0) {  
+      (10000, "Error 0x%08X detecting plugins.\n", res);
     } else if (res != 0) {
       ErrorExit(20000, "Disable all your plugins first before using this software.\n"
                        "If you have already disabled them, but still get this message,\n"
