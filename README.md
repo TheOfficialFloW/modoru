@@ -11,7 +11,7 @@
 
 ## Installation
 
-1. Download and install [modoru.vpk](https://github.com/TheOfficialFloW/modoru/releases/download/v1.0/modoru.vpk) using *VitaShell*.
+1. Download and install [modoru.vpk](https://github.com/SKGleba/modoru/releases/download/v2.0/modoru.vpk) using *VitaShell*.
 2. Obtain the `PSP2UPDAT.PUP` file of your desired firmware (make sure that this firmware is officially hackable) and place it at `ux0:app/MODORU000/PSP2UPDAT.PUP` (don't install `modoru.vpk` afterwards, otherwise the update file will be removed).
 3. Disable all your plugins. Easiest way is renaming `ux0:tai` and `ur0:tai` to some other name.
 4. Reboot your device and relaunch *HENkaku/h-encore*.
