@@ -52,6 +52,6 @@ Thank you!
 - Thanks to Freakler for the LiveArea design.
 - Thanks to liblor for the name suggestion.
 - Thanks to yifanlu for prior research on downgrading.
-- Thanks to molecule for SCE decryption utilities.
+- Thanks to molecule for SCE decryption utilities and secure coprocessor write primitive.
 - Thanks to SKGleba for betatesting.
 
