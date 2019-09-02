@@ -264,8 +264,8 @@ int main(int argc, char *argv[]) {
   psvDebugScreenInit();
   sceKernelPowerLock(0);
 
-  printf("-- modoru v1.0\n");
-  printf("   by TheFloW\n\n");
+  printf("-- modoru v2.0\n");
+  printf("   by TheFloW, mod by SKGleba\n\n");
 
   if (sceIoDevctl("ux0:", 0x3001, NULL, 0, NULL, 0) == 0x80010030)
     ErrorExit(10000, "Enable unsafe homebrew first before using this software.\n");
@@ -343,6 +343,9 @@ int main(int argc, char *argv[]) {
 
   if (target_version < factory_version)
     ErrorExit(10000, "Error you cannot go lower than your factory firmware.");
+
+  if (current_version > 0x03720011)
+    ErrorExit(10000, "Error your current system software version is not supported.");
 
   if (target_version == current_version) {
     printf("Do you want to reinstall firmware ");
