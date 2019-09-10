@@ -20,7 +20,7 @@
 	<frame id="frame4">
 		<liveitem>
 			<text align="left" text-align="left" word-wrap="off" ellipsis="on">
-				<str size="18" color="#000000" shadow="off">v1.0</str>
+				<str size="18" color="#000000" shadow="off">v2.0</str>
 			</text>
 		</liveitem>
 	</frame>
