@@ -78,7 +78,7 @@ static tai_hook_ref_t ksceSblSmCommCallFuncRef;
 
 static SceUID hooks[8];
 
-static int isfw72 = 0;
+static int doInject = 0;
 
 static int ksceKernelStartPreloadedModulesPatched(SceUID pid) {
   int res = TAI_CONTINUE(int, ksceKernelStartPreloadedModulesRef, pid);
@@ -158,8 +158,8 @@ static int nzero32(uint32_t addr, int ctx) {
 
 static int ksceSblSmCommCallFuncPatched(int id, int service_id, int *f00d_resp, void *data, int size) {
 	
-  if (isfw72 == 1 && service_id == 0xb0002)
-	  NZERO_RANGE(0x0080bb44, 0x0080bb98, id);
+  if (doInject == 1 && service_id == 0xb0002)
+	   NZERO_RANGE(0x0080bb44, 0x0080bb98, id);
 	
   int res = TAI_CONTINUE(int, ksceSblSmCommCallFuncRef, id, service_id, f00d_resp, data, size);
 
@@ -375,8 +375,8 @@ int k_modoru_get_factory_firmware(void) {
   void *sysroot = ksceKernelGetSysrootBuffer();
   if (sysroot) {
     factory_fw = *(unsigned int *)(sysroot + 8);
-	if (*(unsigned int *)(sysroot + 4) == 0x03710000 || *(unsigned int *)(sysroot + 4) == 0x03720000)
-		isfw72 = 1;
+	if (*(unsigned int *)(sysroot + 4) > 0x03700011)
+		doInject = 1;
   }
 
   EXIT_SYSCALL(state);
