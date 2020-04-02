@@ -4,7 +4,7 @@
 
 ## Requirements
 
-- Your device must already run **HENkaku/h-encore** on firmwares 3.60-3.68 in order to use this software. Firmwares 3.69 and 3.70 can use this software once a new hack is released.
+- Your device must already run **HENkaku/h-encore** on firmwares 3.60-3.70 in order to use this software. **ATTENTION: You should NOT attempt downgrading using modoru on FW 3.71-3.73**
 - Your device's battery has be at least at 50%.
 - All your plugins must be disabled, therefore you will not be able to launch the downgrader from a SD2VITA and hence, you must have a Memory Card (or Internal Storage).
 - If you have installed IMCUnlock by SKGleba, it is recommended to uninstall it first before attempting to downgrade.
@@ -24,8 +24,6 @@
   A: Here is a nice collection by darthsternie: [PS Vita Firmwares](https://darthsternie.net/index.php/ps-vita-firmwares/). Make sure you download the firmware from the `Complete Official Firmwares` section.
 - Q: There are 3 different PUP files in the archive, which one do I need?  
   A: There are packages with (pre), (systemdata) and (full). You should choose the full one.
-- Q: Can I downgrade my 3.69/3.70 device using this tool?  
-  A: Yes, but not yet. You'll need to wait until the next exploit chain is released.
 - Q: My factory firmware is higher than 3.65 and *modoru* doesn't allow me to downgrade to 3.60/3.65.  
   A: Unfortunately, there are some devices with factory firmware above 3.65. These cannot be downgraded (yet). This means no bootloader hack for you.
 - Q: Can I downgrade my device to 3.60/3.65 and then install ensō?  
