@@ -264,7 +264,7 @@ int main(int argc, char *argv[]) {
   psvDebugScreenInit();
   sceKernelPowerLock(0);
 
-  printf("-- modoru v1.0\n");
+  printf("-- modoru v2.1\n");
   printf("   by TheFloW\n\n");
 
   if (sceIoDevctl("ux0:", 0x3001, NULL, 0, NULL, 0) == 0x80010030)
@@ -343,6 +343,11 @@ int main(int argc, char *argv[]) {
 
   if (target_version < factory_version)
     ErrorExit(10000, "Error you cannot go lower than your factory firmware.");
+
+  if (!bypass) {
+	if (current_version > 0x03730011)
+		ErrorExit(10000, "Error your current system software version is not supported.");
+  }
 
   if (target_version == current_version) {
     printf("Do you want to reinstall firmware ");

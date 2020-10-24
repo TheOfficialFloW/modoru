@@ -23,6 +23,46 @@
 
 #define MOD_LIST_SIZE 128
 
+#define NZERO_RANGE(off, end, ctx) \
+	do { \
+		int curr = 0; \
+		while (off + curr < end + 4) { \
+			nzero32((off + curr), ctx); \
+			curr = curr + 4; \
+		} \
+} while (0)
+
+typedef struct {
+  void *addr;
+  uint32_t length;
+} __attribute__((packed)) region_t;
+
+typedef struct {
+  uint32_t unused_0[2];
+  uint32_t use_lv2_mode_0; // if 1, use lv2 list
+  uint32_t use_lv2_mode_1; // if 1, use lv2 list
+  uint32_t unused_10[3];
+  uint32_t list_count; // must be < 0x1F1
+  uint32_t unused_20[4];
+  uint32_t total_count; // only used in LV1 mode
+  uint32_t unused_34[1];
+  union {
+    region_t lv1[0x1F1];
+    region_t lv2[0x1F1];
+  } list;
+} __attribute__((packed)) cmd_0x50002_t;
+
+typedef struct heap_hdr {
+  void *data;
+  uint32_t size;
+  uint32_t size_aligned;
+  uint32_t padding;
+  struct heap_hdr *prev;
+  struct heap_hdr *next;
+} __attribute__((packed)) heap_hdr_t;
+
+cmd_0x50002_t cargs;
+
 int module_get_export_func(SceUID pid, const char *modname, uint32_t libnid, uint32_t funcnid, uintptr_t *func);
 
 int ksceAppMgrLaunchAppByPath(const char *name, const char *cmd, int cmdlen, int dynamic, void *opt, void *id);
@@ -37,6 +77,8 @@ static tai_hook_ref_t ksceKernelFreeHeapMemoryRef;
 static tai_hook_ref_t ksceSblSmCommCallFuncRef;
 
 static SceUID hooks[8];
+
+static int doInject = 0;
 
 static int ksceKernelStartPreloadedModulesPatched(SceUID pid) {
   int res = TAI_CONTINUE(int, ksceKernelStartPreloadedModulesRef, pid);
@@ -97,7 +139,28 @@ static int ksceSblSsInfraAllocatePARangeVectorPatched(void *buf, int size, SceUI
   return TAI_CONTINUE(int, ksceSblSsInfraAllocatePARangeVectorRef, buf, size, blockid, list);
 }
 
+static int nzero32(uint32_t addr, int ctx) {
+  int ret = 0, sm_ret = 0;
+  memset(&cargs, 0, sizeof(cargs));
+  cargs.use_lv2_mode_0 = cargs.use_lv2_mode_1 = 0;
+  cargs.list_count = 3;
+  cargs.total_count = 1;
+  cargs.list.lv1[0].addr = cargs.list.lv1[1].addr = 0x50000000;
+  cargs.list.lv1[0].length = cargs.list.lv1[1].length = 0x10;
+  cargs.list.lv1[2].addr = 0;
+  cargs.list.lv1[2].length = addr - offsetof(heap_hdr_t, next);
+  ret = TAI_CONTINUE(int, ksceSblSmCommCallFuncRef, ctx, 0x50002, &sm_ret, &cargs, sizeof(cargs));
+  if (sm_ret < 0) {
+    return sm_ret;
+  }
+  return ret;
+}
+
 static int ksceSblSmCommCallFuncPatched(int id, int service_id, int *f00d_resp, void *data, int size) {
+	
+  if (doInject == 1 && service_id == 0xb0002)
+	   NZERO_RANGE(0x0080bb44, 0x0080bb98, id);
+	
   int res = TAI_CONTINUE(int, ksceSblSmCommCallFuncRef, id, service_id, f00d_resp, data, size);
 
   if (f00d_resp && service_id == SCE_SBL_SM_COMM_FID_SM_AUTH_SPKG) {
@@ -310,8 +373,11 @@ int k_modoru_get_factory_firmware(void) {
   unsigned int factory_fw = -1;
 
   void *sysroot = ksceKernelGetSysrootBuffer();
-  if (sysroot)
+  if (sysroot) {
     factory_fw = *(unsigned int *)(sysroot + 8);
+	if (*(unsigned int *)(sysroot + 4) > 0x03700011)
+		doInject = 1;
+  }
 
   EXIT_SYSCALL(state);
   return factory_fw;
