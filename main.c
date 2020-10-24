@@ -265,7 +265,7 @@ int main(int argc, char *argv[]) {
   sceKernelPowerLock(0);
 
   printf("-- modoru v2.1\n");
-  printf("   by TheFloW, mod by SKGleba\n\n");
+  printf("   by TheFloW\n\n");
 
   if (sceIoDevctl("ux0:", 0x3001, NULL, 0, NULL, 0) == 0x80010030)
     ErrorExit(10000, "Enable unsafe homebrew first before using this software.\n");
