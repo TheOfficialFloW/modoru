@@ -10,12 +10,12 @@
 #include <psp2kern/kernel/modulemgr.h>
 #include <psp2kern/kernel/threadmgr.h>
 #include <psp2kern/kernel/sysmem.h>
+#include <psp2kern/kernel/sysclib.h>
 #include <psp2kern/kernel/cpu.h>
+#include <psp2kern/sblaimgr.h>
+#include <psp2kern/appmgr.h>
 
 #include <taihen.h>
-
-#include <stdio.h>
-#include <string.h>
 
 #include "spkg.h"
 
@@ -64,8 +64,6 @@ typedef struct heap_hdr {
 cmd_0x50002_t cargs;
 
 int module_get_export_func(SceUID pid, const char *modname, uint32_t libnid, uint32_t funcnid, uintptr_t *func);
-
-int ksceAppMgrLaunchAppByPath(const char *name, const char *cmd, int cmdlen, int dynamic, void *opt, void *id);
 
 static tai_hook_ref_t ksceKernelStartPreloadedModulesRef;
 static tai_hook_ref_t ksceSblACMgrIsDevelopmentModeRef;
@@ -276,11 +274,11 @@ err:
 }
 
 static int launch_thread(SceSize args, void *argp) {
-  int opt[52/4];
-  memset(opt, 0, sizeof(opt));
-  opt[0] = sizeof(opt);
+  SceAppMgrLaunchParam param;
+  memset(&param, 0, sizeof(param));
+  param.size = sizeof(param);
 
-  ksceAppMgrLaunchAppByPath("ud0:PSP2UPDATE/psp2swu.self", NULL, 0, 0, opt, NULL);
+  ksceAppMgrLaunchAppByPath("ud0:PSP2UPDATE/psp2swu.self", NULL, 0, 0, &param, NULL);
 
   return ksceKernelExitDeleteThread(0);
 }
@@ -372,10 +370,9 @@ int k_modoru_get_factory_firmware(void) {
 
   unsigned int factory_fw = -1;
 
-  void *sysroot = ksceKernelGetSysrootBuffer();
-  if (sysroot) {
-    factory_fw = *(unsigned int *)(sysroot + 8);
-	if (*(unsigned int *)(sysroot + 4) > 0x03700011)
+  int res = ksceSblAimgrGetSMI(&factory_fw);
+  if (res >= 0) {
+	if (factory_fw > 0x03700011)
 		doInject = 1;
   }
 

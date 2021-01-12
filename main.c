@@ -32,6 +32,8 @@
 
 #define APP_PATH "ux0:app/MODORU000/"
 #define PUP_PATH APP_PATH "PSP2UPDAT.PUP"
+#define PUP_PATH_EXTERNAL_1 "sd0:PSP2UPDAT.PUP"
+#define PUP_PATH_EXTERNAL_2 "uma0:PSP2UPDAT.PUP"
 
 #define CHUNK_SIZE 64 * 1024
 
@@ -320,8 +322,13 @@ int main(int argc, char *argv[]) {
   }
 
   char header[0x80];
+  SceUID fd;
 
-  SceUID fd = sceIoOpen(PUP_PATH, SCE_O_RDONLY, 0);
+  fd = sceIoOpen(PUP_PATH_EXTERNAL_1, SCE_O_RDONLY, 0);
+  if (fd < 0)
+    fd = sceIoOpen(PUP_PATH_EXTERNAL_2, SCE_O_RDONLY, 0);
+  if (fd < 0)
+    fd = sceIoOpen(PUP_PATH, SCE_O_RDONLY, 0);
   if (fd < 0)
     ErrorExit(10000, "Error 0x%08X opening %s.\n", fd, PUP_PATH);
   sceIoRead(fd, header, sizeof(header));
@@ -399,7 +406,12 @@ int main(int argc, char *argv[]) {
   printf("OK\n");
 
   printf("Copying PSP2UPDAT.PUP to ud0:...");
-  res = copy(PUP_PATH, "ud0:PSP2UPDATE/PSP2UPDAT.PUP");
+
+  res = copy(PUP_PATH_EXTERNAL_1, "ud0:PSP2UPDATE/PSP2UPDAT.PUP");
+  if (res < 0)
+    res = copy(PUP_PATH_EXTERNAL_2, "ud0:PSP2UPDATE/PSP2UPDAT.PUP");
+  if (res < 0)
+    res = copy(PUP_PATH, "ud0:PSP2UPDATE/PSP2UPDAT.PUP");
   if (res < 0)
     ErrorExit(10000, "Error 0x%08X copying PSP2UPDAT.PUP.\n", res);
   printf("OK\n");
