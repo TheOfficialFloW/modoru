@@ -71,6 +71,7 @@ target_link_libraries(modoru_kernel
   SceCpuForDriver_stub
   SceKernelUtilsForDriver_stub
   SceModulemgrForDriver_stub
+  SceSblAIMgrForDriver_stub
   SceSblSsMgrForDriver_stub
   SceSysclibForDriver_stub
   SceSysmemForDriver_stub
