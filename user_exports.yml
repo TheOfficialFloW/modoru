@@ -13,5 +13,4 @@ modoru_user:
         - modoru_patch_updater
         - modoru_launch_updater
         - modoru_detect_plugins
-        - modoru_get_factory_firmware
         - modoru_ctrl_peek_buffer_positive

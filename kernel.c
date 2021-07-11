@@ -366,23 +366,6 @@ err:
   return res;
 }
 
-int k_modoru_get_factory_firmware(void) {
-  uint32_t state;
-  ENTER_SYSCALL(state);
-
-  unsigned int factory_fw = -1;
-
-  void *sysroot = ksceKernelGetSysrootBuffer();
-  if (sysroot) {
-    factory_fw = *(unsigned int *)(sysroot + 8);
-	if (*(unsigned int *)(sysroot + 4) > 0x03700011)
-		doInject = 1;
-  }
-
-  EXIT_SYSCALL(state);
-  return factory_fw;
-}
-
 int k_modoru_ctrl_peek_buffer_positive(int port, SceCtrlData *pad_data, int count) {
   SceCtrlData pad;
   uint32_t off;

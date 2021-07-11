@@ -144,10 +144,6 @@ int modoru_detect_plugins(void) {
   return k_modoru_detect_plugins();
 }
 
-int modoru_get_factory_firmware(void) {
-  return k_modoru_get_factory_firmware();
-}
-
 int modoru_ctrl_peek_buffer_positive(int port, SceCtrlData *pad_data, int count) {
   return k_modoru_ctrl_peek_buffer_positive(port, pad_data, count);
 }

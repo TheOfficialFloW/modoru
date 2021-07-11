@@ -277,9 +277,12 @@ int main(int argc, char *argv[]) {
   SceKernelFwInfo fwinfo;
   fwinfo.size = sizeof(SceKernelFwInfo);
   _vshSblGetSystemSwVersion(&fwinfo);
+  
+  int fwinfo2 = 0;
+  _vshSblAimgrGetSMI(&fwinfo2);
 
   unsigned int current_version = (unsigned int)fwinfo.version;
-  unsigned int factory_version = modoru_get_factory_firmware();
+  unsigned int factory_version = (unsigned int)fwinfo2;
 
   char current_fw[8], factory_fw[8];
   firmware_string(current_fw, current_version);
