@@ -4,7 +4,7 @@
 
 ## Requirements
 
-- Your device must already run **HENkaku/h-encore** on firmwares 3.60-3.73 in order to use this software.
+- Your device must already run **HENkaku/h-encore** on firmwares 3.60-3.74 in order to use this software.
 - Your device's battery has be at least at 50%.
 - All your plugins must be disabled, therefore you will not be able to launch the downgrader from a SD2VITA and hence, you must have a Memory Card (or Internal Storage).
 - If you have installed IMCUnlock by SKGleba, it is recommended to uninstall it first before attempting to downgrade to a firmware lower than 2.10.

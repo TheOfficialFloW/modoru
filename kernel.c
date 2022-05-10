@@ -84,7 +84,7 @@ static int ksceKernelStartPreloadedModulesPatched(SceUID pid) {
   int res = TAI_CONTINUE(int, ksceKernelStartPreloadedModulesRef, pid);
 
   char titleid[32];
-  ksceKernelGetProcessTitleId(pid, titleid, sizeof(titleid));
+  ksceKernelSysrootGetProcessTitleId(pid, titleid, sizeof(titleid));
 
   if (strcmp(titleid, "NPXS10999") == 0) {
     ksceKernelLoadStartModuleForPid(pid, "vs0:sys/external/libshellsvc.suprx", 0, NULL, 0, NULL, NULL);
@@ -372,7 +372,7 @@ int k_modoru_get_factory_firmware(void) {
 
   unsigned int factory_fw = -1;
 
-  void *sysroot = ksceKernelGetSysrootBuffer();
+  void* sysroot = ksceKernelSysrootGetKblParam();
   if (sysroot) {
     factory_fw = *(unsigned int *)(sysroot + 8);
 	if (*(unsigned int *)(sysroot + 4) > 0x03700011)
